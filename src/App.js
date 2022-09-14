@@ -19,6 +19,7 @@ function App() {
       const data = {
         id: nextId.current,
         name: todo,
+        fix: false,
       };
       setIndexs([...indexs, data]);
       setTodo("");
@@ -33,28 +34,25 @@ function App() {
       onReset();
     }
   };
-  const Main = (props) => {
-    return (
-      <S.List>
-        {fix != false ? (
+  
+  function asdf() {
+    console.log(indexs);
+  }
+  const nameList = indexs.map((item) => 
+  <S.List>
+     {indexs === false ? (
           <>
-            <input onChange={onChange} value={todo} placeholder="입력"/>
+            <input onChange={onChange} value={todo} placeholder="입력" />
             <button onClick={onFix}>확인</button>
           </>
         ) : (
           <>
-            <h3>{props.item.name}</h3>
+            <h3>{item.name}</h3>
             <button onClick={onFix}>수정</button>
-            <button onClick={() => onRemove(props.item.id)}>X</button>
+            <button onClick={() => onRemove(item.id)}>X</button>
           </>
         )}
-      </S.List>
-    );
-  };
-  function asdf() {
-    console.log(indexs);
-  }
-  const nameList = indexs.map((item) => <Main item={item} />);
+  </S.List>);
   return (
     <>
       <input
@@ -64,6 +62,7 @@ function App() {
         onKeyDown={onKeyPress}
       />
       <button onClick={onReset}>입력</button>
+      <button onClick={asdf}>입력</button>
       <div>{nameList}</div>
     </>
   );
