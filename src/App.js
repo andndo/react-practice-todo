@@ -19,40 +19,47 @@ function App() {
       const data = {
         id: nextId.current,
         name: todo,
-        fix: false,
+        fix: fix,
       };
       setIndexs([...indexs, data]);
       setTodo("");
       nextId.current += 1;
     }
   };
-  const onFix = () => {
-    setFix(!fix);
+  const onFix = (id) => {
+    console.log(id);
+    setIndexs(
+      indexs.map((item) => ({
+        ...item,
+        fix: item.id === id ? true : false,
+      }))
+    );
   };
   const onKeyPress = (e) => {
     if (e.key == "Enter") {
       onReset();
     }
   };
-  
+
   function asdf() {
     console.log(indexs);
   }
-  const nameList = indexs.map((item) => 
-  <S.List>
-     {indexs === false ? (
-          <>
-            <input onChange={onChange} value={todo} placeholder="입력" />
-            <button onClick={onFix}>확인</button>
-          </>
-        ) : (
-          <>
-            <h3>{item.name}</h3>
-            <button onClick={onFix}>수정</button>
-            <button onClick={() => onRemove(item.id)}>X</button>
-          </>
-        )}
-  </S.List>);
+  const nameList = indexs.map((item) => (
+    <S.List>
+      {item.fix !== false ? (
+        <>
+          <input onChange={onChange} value={todo} placeholder="입력" />
+          <button onClick={() => onFix(item)}>확인</button>
+        </>
+      ) : (
+        <>
+          <h3>{item.name}</h3>
+          <button onClick={onFix}>수정</button>
+          <button onClick={() => onRemove(item.id)}>X</button>
+        </>
+      )}
+    </S.List>
+  ));
   return (
     <>
       <input
