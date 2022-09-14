@@ -4,10 +4,14 @@ import * as S from "./style";
 function App() {
   const [indexs, setIndexs] = useState([]);
   const [todo, setTodo] = useState("");
+  const [todos, setTodos] = useState("");
   const [fix, setFix] = useState(false);
 
   const onChange = (e) => {
     setTodo(e.target.value);
+  };
+  const onChanges = (e) => {
+    setTodos(e.target.value);
   };
   const onRemove = (e) => {
     const data = indexs.filter((data) => data.id !== e);
@@ -27,7 +31,6 @@ function App() {
     }
   };
   const onFix = (id) => {
-    console.log(id);
     setIndexs(
       indexs.map((item) => ({
         ...item,
@@ -48,13 +51,13 @@ function App() {
     <S.List>
       {item.fix !== false ? (
         <>
-          <input onChange={onChange} value={todo} placeholder="입력" />
-          <button onClick={() => onFix(item)}>확인</button>
+          <input onChange={onChanges} value={todos} placeholder="입력" />
+          <button onClick={() => onFix(item.id)}>확인</button>
         </>
       ) : (
         <>
           <h3>{item.name}</h3>
-          <button onClick={onFix}>수정</button>
+          <button onClick={() => onFix(item.id)}>수정</button>
           <button onClick={() => onRemove(item.id)}>X</button>
         </>
       )}
