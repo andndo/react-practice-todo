@@ -37,6 +37,9 @@ function App() {
         fix: item.id === id ? true : false,
       }))
     );
+    if(fix === true){
+      
+    }
   };
   const onKeyPress = (e) => {
     if (e.key == "Enter") {
@@ -72,7 +75,7 @@ function App() {
         onKeyDown={onKeyPress}
       />
       <button onClick={onReset}>입력</button>
-      <button onClick={asdf}>입력</button>
+      <button onClick={asdf}>콘솔</button>
       <div>{nameList}</div>
     </>
   );
