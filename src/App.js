@@ -5,7 +5,6 @@ function App() {
   const [indexs, setIndexs] = useState([]);
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState("");
-  const [fix, setFix] = useState(false);
 
   const onChange = (e) => {
     setTodo(e.target.value);
@@ -23,7 +22,7 @@ function App() {
       const data = {
         id: nextId.current,
         name: todo,
-        fix: fix,
+        fix: false,
       };
       setIndexs([...indexs, data]);
       setTodo("");
@@ -37,12 +36,23 @@ function App() {
         fix: item.id === id ? true : false,
       }))
     );
-    if(fix === true){
-      
-    }
   };
+  const onFixed = (item) => {
+    console.log(item);
+    setIndexs(
+      indexs.map((data) => ({
+        ...item,
+        name: data.id === item.id ? todos : data.name,
+        fix: false,
+      }))
+    );
+    console.log(indexs);
+  };
+  function inputFix(e) {
+    setTodos(e.target.value);
+  }
   const onKeyPress = (e) => {
-    if (e.key == "Enter") {
+    if (e.key === "Enter") {
       onReset();
     }
   };
@@ -54,8 +64,12 @@ function App() {
     <S.List>
       {item.fix !== false ? (
         <>
-          <input onChange={onChanges} value={todos} placeholder="입력" />
-          <button onClick={() => onFix(item.id)}>확인</button>
+          <input
+            onChange={(e) => inputFix(e)}
+            value={todos}
+            placeholder="입력"
+          />
+          <button onClick={() => onFixed(item)}>확인</button>
         </>
       ) : (
         <>
