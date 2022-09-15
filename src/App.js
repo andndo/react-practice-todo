@@ -41,12 +41,12 @@ function App() {
     console.log(item);
     setIndexs(
       indexs.map((data) => ({
-        ...item,
+        ...data,
         name: data.id === item.id ? todos : data.name,
         fix: false,
       }))
     );
-    console.log(indexs);
+    setTodos("");
   };
   function inputFix(e) {
     setTodos(e.target.value);
